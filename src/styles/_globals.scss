@@ -1,0 +1,131 @@
+@use './abstractions' as *;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+input[type='text'],
+input[type='text']:focus {
+  border: none;
+  outline: none;
+}
+
+input {
+  font-size: var(--fs-L);
+  font-weight: var(--fw-bold);
+  padding: 0.875rem 1rem;
+  width: 100%;
+}
+
+input[type='radio'] {
+  margin: 0;
+  width: min-content;
+  transform: scale(1.2);
+}
+
+:root {
+  --clr-lime: hsl(61, 70%, 52%);
+  --clr-red: hsl(4, 69%, 50%);
+  --clr-slate-100: hsl(202, 86%, 94%);
+  --clr-slate-300: hsl(203, 41%, 72%);
+  --clr-slate-500: hsl(200, 26%, 54%);
+  --clr-slate-700: hsl(200, 24%, 40%);
+  --clr-slate-900: hsl(202, 55%, 16%);
+
+  --ff-base: 'Plus Jakarta Sans', sans;
+
+  --fw-normal: 500;
+  --fw-bold: 700;
+
+  --fs-XXL: calc(56rem / 16);
+  --fs-XL: calc(24rem / 16);
+  --fs-L: calc(18rem / 16);
+  --fs-M: 1rem;
+  --fs-S: calc(14rem / 16);
+
+  --spacing-100: 8px;
+  --spacing-150: 12px;
+  --spacing-200: 16px;
+  --spacing-300: 24px;
+  --spacing-400: 32px;
+  --spacing-500: 40px;
+}
+
+@media (max-width: $breakpoint-small) {
+  :root {
+    --fs-XXL: calc(40rem / 16);
+  }
+}
+
+// text classes
+.font-normal {
+  font-weight: var(--fw-normal);
+}
+
+.font-bold {
+  font-weight: var(--fw-bold);
+}
+
+.text-S {
+  font-size: var(--fs-S);
+}
+
+.text-M {
+  font-size: var(--fs-M);
+}
+
+.text-L {
+  font-size: var(--fs-L);
+}
+
+.text-XL {
+  font-size: var(--fs-XL);
+}
+
+.text-XXL {
+  font-size: var(--fs-XXL);
+}
+
+.text-white {
+  color: white;
+}
+
+.text-dark-slate {
+  color: var(--clr-slate-900);
+}
+
+.text-medium-slate {
+  color: var(--clr-slate-700);
+}
+
+.text-light-slate {
+  color: var(--clr-slate-300);
+}
+
+.text-red {
+  color: var(--clr-red);
+}
+
+.text-lime {
+  color: var(--clr-lime);
+}
+
+// utility
+.label-basic {
+  font-size: var(--fs-M);
+  color: var(--clr-slate-700);
+}
+
+.label-stressed {
+  font-size: var(--fs-L);
+  color: var(--clr-slate-900);
+  font-weight: bold;
+}
+
+.input-design {
+  border: 1px solid var(--clr-slate-500);
+  border-radius: 4px;
+  overflow: hidden;
+}

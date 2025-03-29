@@ -1,0 +1,98 @@
+@use './styles/globals' as *;
+@use './styles/abstractions' as *;
+
+.app {
+  min-height: 100%;
+  background-color: var(--clr-slate-100);
+  font-family: var(--ff-base);
+}
+
+.card {
+  display: grid;
+}
+
+.form-section {
+  padding: 32px 24px;
+  background-color: white;
+}
+
+.input-wrapper {
+  display: flex;
+  border: 1px solid red;
+}
+
+.input-flex-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @media (min-width: $breakpoint-small) {
+    flex-direction: row;
+  }
+
+  & > * {
+    width: 100%;
+  }
+}
+
+.input-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+.radio-input-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.input-decor {
+  background-color: var(--clr-slate-100);
+  padding: var(--spacing-150);
+  font-size: var(--fs-L);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.radio-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid black;
+}
+
+.clear-button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: 0;
+  text-decoration: 1px var(--clr-slate-700) underline;
+}
+
+.submit-button {
+  width: fit-content;
+  border-radius: 9999px;
+  background-color: var(--clr-lime);
+  font-size: var(--fs-L);
+  padding-block: 1rem;
+  padding-inline: 40px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+
+  img {
+    width: 1.3rem;
+  }
+}
+
+//reults
+.result-section {
+  min-height: 300px;
+  background-color: var(--clr-slate-900);
+}
