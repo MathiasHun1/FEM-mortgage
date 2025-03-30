@@ -8,12 +8,16 @@ import {
   formatString,
 } from './utils';
 
+import ResultSection from './components/ResultSection';
+import TextInput from './components/TextInput';
+
 const initialState = {
   amount: '',
   term: '',
   rate: '',
   method: '',
   result: '',
+  total: '',
 };
 
 const inputReducer = (state, action) => {
@@ -35,6 +39,9 @@ const inputReducer = (state, action) => {
 
     case 'setResult': {
       return { ...state, result: action.payload };
+    }
+    case 'setTotal': {
+      return { ...state, total: action.payload };
     }
 
     case 'clearAll': {
@@ -65,8 +72,9 @@ function App() {
 
     if (state.method === 'repayment') {
       const result = calculateRepay(amount, term, rate);
-      console.log(result);
-      dispatch({ type: 'setResult', payload: result });
+      const total = result * term * 12;
+      dispatch({ type: 'setResult', payload: result.toString() });
+      dispatch({ type: 'setTotal', payload: total.toString() });
     }
   };
 
@@ -90,21 +98,18 @@ function App() {
               <label className="label-basic" htmlFor="amount">
                 Mortgage Amount
               </label>
-              <div className="input-wrapper input-design">
-                <p className="input-decor text-medium-slate font-bold">$</p>
-                <input
-                  className=""
-                  type="text"
-                  id="amount"
-                  value={formatString(state.amount)}
-                  onChange={(e) =>
-                    dispatch({
-                      type: 'amount',
-                      payload: normalizeString(e.target.value),
-                    })
-                  }
-                />
-              </div>
+              <TextInput
+                id="amount"
+                value={state.amount}
+                onChange={(e) =>
+                  dispatch({
+                    type: 'amount',
+                    payload: normalizeString(e.target.value),
+                  })
+                }
+                decoration="$"
+                decorSide="left"
+              />
             </div>
 
             <div className="input-flex-wrapper">
@@ -112,32 +117,39 @@ function App() {
                 <label className="label-basic" htmlFor="term">
                   Mortgage Term
                 </label>
-                <div className="input-wrapper input-design">
-                  <input
-                    className=""
-                    type="text"
-                    id="term"
-                    value={state.term}
-                    onChange={(e) =>
-                      dispatch({
-                        type: 'term',
-                        payload: e.target.value,
-                      })
-                    }
-                  />
-                  <p className="input-decor text-medium-slate font-bold">
-                    years
-                  </p>
-                </div>
+                <TextInput
+                  id="term"
+                  value={state.term}
+                  onChange={(e) =>
+                    dispatch({
+                      type: 'term',
+                      payload: e.target.value,
+                    })
+                  }
+                  decoration="years"
+                  decorSide={'right'}
+                />
               </div>
               <div className="input-block">
                 <label className="label-basic" htmlFor="rate">
                   Mortgage Rate
                 </label>
-                <div className="input-wrapper input-design">
+                <TextInput
+                  id="rate"
+                  value={state.rate}
+                  onChange={(e) =>
+                    dispatch({
+                      type: 'rate',
+                      payload: e.target.value,
+                    })
+                  }
+                  decoration="%"
+                  decorSide="right"
+                />
+                {/* <div className="input-wrapper input-design">
                   <input
                     className=""
-                    type="rate"
+                    type="text"
                     id="rate"
                     value={state.rate}
                     onChange={(e) =>
@@ -148,7 +160,7 @@ function App() {
                     }
                   />
                   <p className="input-decor text-medium-slate font-bold">%</p>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -201,11 +213,7 @@ function App() {
         </div>
 
         <div className="result-section">
-          {state.result && (
-            <h1 className="text-lime">
-              Result: {formatString(state.result.toFixed(0))} Ft
-            </h1>
-          )}
+          <ResultSection result={state.result} total={state.total} />
         </div>
       </main>
     </div>

@@ -6,16 +6,26 @@ body,
   height: 100%;
 }
 
-input[type='text'],
+input[type='text'] {
+  border: 1px solid var(--clr-slate-500);
+  border-radius: 4px;
+}
+
 input[type='text']:focus {
-  border: none;
   outline: none;
+  border: 1px solid var(--clr-slate-900);
+}
+
+input[type='text']:active {
+  outline: none;
+  border: 1px solid var(--clr-lime);
 }
 
 input {
   font-size: var(--fs-L);
   font-weight: var(--fw-bold);
-  padding: 0.875rem 1rem;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
   width: 100%;
 }
 
@@ -112,6 +122,10 @@ input[type='radio'] {
   color: var(--clr-lime);
 }
 
+.text-center {
+  text-align: center;
+}
+
 // utility
 .label-basic {
   font-size: var(--fs-M);
@@ -125,7 +139,6 @@ input[type='radio'] {
 }
 
 .input-design {
-  border: 1px solid var(--clr-slate-500);
   border-radius: 4px;
   overflow: hidden;
 }

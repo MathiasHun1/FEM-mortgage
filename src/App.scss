@@ -1,30 +1,58 @@
 @use './styles/globals' as *;
 @use './styles/abstractions' as *;
+@use 'sass:color';
 
 .app {
   min-height: 100%;
   background-color: var(--clr-slate-100);
   font-family: var(--ff-base);
+  display: grid;
+  place-items: center;
 }
 
 .card {
   display: grid;
+  max-width: 62.5rem;
+  background-color: white;
+
+  @media (min-width: $breakpoint-small) {
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .form-section {
   padding: 32px 24px;
   background-color: white;
+
+  @media (min-width: $breakpoint-small) {
+    padding: 40px;
+  }
+}
+
+.form-header {
+  @media (min-width: $breakpoint-small) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
 }
 
 .input-wrapper {
   display: flex;
-  border: 1px solid red;
+  position: relative;
 }
 
 .input-flex-wrapper {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  position: relative;
 
   @media (min-width: $breakpoint-small) {
     flex-direction: row;
@@ -50,6 +78,9 @@
   background-color: var(--clr-slate-100);
   padding: var(--spacing-150);
   font-size: var(--fs-L);
+  position: absolute;
+  display: grid;
+  place-content: center;
 }
 
 .form {
@@ -79,12 +110,18 @@
   border-radius: 9999px;
   background-color: var(--clr-lime);
   font-size: var(--fs-L);
+  text-wrap: nowrap;
   padding-block: 1rem;
   padding-inline: 40px;
   border: none;
   display: flex;
   justify-content: center;
   gap: 0.5rem;
+  cursor: pointer;
+
+  @media (min-width: $breakpoint-small) {
+    margin-top: 16px;
+  }
 
   img {
     width: 1.3rem;
@@ -93,6 +130,62 @@
 
 //reults
 .result-section {
-  min-height: 300px;
   background-color: var(--clr-slate-900);
+  padding: 2rem 1.5rem;
+
+  @media (min-width: $breakpoint-small) {
+    padding: 40px;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    border-bottom-left-radius: 100px;
+  }
+}
+
+.noresult-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.image_wrapper-result {
+  width: 60%;
+  max-width: 192px;
+  & img {
+    width: 100%;
+  }
+}
+
+.isresult-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: start;
+}
+
+.calculations-wrapper {
+  width: 100%;
+  background-color: color-mix(in hsl, var(--clr-slate-900), black 25%);
+  padding: 1.5rem 1rem;
+  border-radius: 8px;
+  border-top: 4px solid var(--clr-lime);
+
+  @media (min-width: $breakpoint-small) {
+    margin-top: 24px;
+    padding: 32px;
+  }
+}
+
+.calculations-wrapper > div:first-of-type {
+  border-bottom: 1px solid hsla(203, 41%, 72%, 0.25);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+
+  @media (min-width: $breakpoint-small) {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+  }
 }
