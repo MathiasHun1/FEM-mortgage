@@ -1,15 +1,17 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import './App.scss';
 import calcSVG from '/images/icon-calculator.svg';
 import {
   calculateRepay,
+  calculateInterest,
   parseInput,
   normalizeString,
-  formatString,
 } from './utils';
+import { lang } from './assets/languageData';
 
 import ResultSection from './components/ResultSection';
 import TextInput from './components/TextInput';
+import LanguagePicker from './components/LanguagePicker';
 
 const initialState = {
   amount: '',
@@ -53,14 +55,41 @@ const inputReducer = (state, action) => {
 };
 
 function App() {
+  const [language, setLanguage] = useState(lang.eng);
   const [state, dispatch] = useReducer(inputReducer, initialState);
+  const [amountError, setAmountError] = useState(false);
+  const [termError, setTermError] = useState(false);
+  const [rateError, setRateError] = useState(false);
+  const [typeError, setTypeError] = useState(false);
+
+  const validate = (state) => {
+    setAmountError(false);
+    setTermError(false);
+    setRateError(false);
+    setTypeError(false);
+
+    if (!state.amount) {
+      setAmountError(true);
+    }
+    if (!state.term) {
+      setTermError(true);
+    }
+    if (!state.rate) {
+      setRateError(true);
+    }
+    if (!(state.method === 'repayment' || state.method === 'interest')) {
+      setTypeError(true);
+    }
+
+    if (!(state.amount && state.term && state.rate && state.method)) {
+      throw new Error('Missing input');
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!(state.amount && state.term && state.rate)) {
-      throw new Error('Missing input');
-    }
+    validate(state);
 
     const amount = Number(state.amount);
     const term = Number(state.term);
@@ -76,6 +105,13 @@ function App() {
       dispatch({ type: 'setResult', payload: result.toString() });
       dispatch({ type: 'setTotal', payload: total.toString() });
     }
+
+    if (state.method === 'interest') {
+      const result = calculateInterest(amount, rate);
+      const total = result * term * 12;
+      dispatch({ type: 'setResult', payload: result.toString() });
+      dispatch({ type: 'setTotal', payload: total.toString() });
+    }
   };
 
   return (
@@ -84,122 +120,132 @@ function App() {
         <div className="form-section">
           <form className="form" onSubmit={handleSubmit}>
             <div className="form-header">
-              <h1 className="text-XL font-bold">Mortgage Calculator</h1>
+              <h1 className="text-XL font-bold">{language.titles.main}</h1>
               <button
                 type="button"
                 className="clear-button text-medium-slate"
                 onClick={() => dispatch({ type: 'clearAll' })}
               >
-                Clear all
+                {language.button.clear}
               </button>
             </div>
 
             <div className="input-block">
               <label className="label-basic" htmlFor="amount">
-                Mortgage Amount
+                {language.labels.amountInput}
               </label>
               <TextInput
                 id="amount"
                 value={state.amount}
-                onChange={(e) =>
+                onChange={(e) => {
                   dispatch({
                     type: 'amount',
                     payload: normalizeString(e.target.value),
-                  })
-                }
-                decoration="$"
+                  });
+                  setAmountError(false);
+                }}
+                decoration={language.meta.amountInput}
                 decorSide="left"
+                errorState={amountError}
               />
             </div>
 
             <div className="input-flex-wrapper">
               <div className="input-block">
                 <label className="label-basic" htmlFor="term">
-                  Mortgage Term
+                  {language.labels.termInput}
                 </label>
                 <TextInput
                   id="term"
                   value={state.term}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     dispatch({
                       type: 'term',
                       payload: e.target.value,
-                    })
-                  }
-                  decoration="years"
+                    });
+                    setTermError(false);
+                  }}
+                  decoration={language.meta.termInput}
                   decorSide={'right'}
+                  errorState={termError}
                 />
               </div>
               <div className="input-block">
                 <label className="label-basic" htmlFor="rate">
-                  Mortgage Rate
+                  {language.labels.rateInput}
                 </label>
                 <TextInput
                   id="rate"
                   value={state.rate}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     dispatch({
                       type: 'rate',
                       payload: e.target.value,
-                    })
-                  }
+                    });
+                    setRateError(false);
+                  }}
                   decoration="%"
                   decorSide="right"
+                  errorState={rateError}
                 />
-                {/* <div className="input-wrapper input-design">
-                  <input
-                    className=""
-                    type="text"
-                    id="rate"
-                    value={state.rate}
-                    onChange={(e) =>
-                      dispatch({
-                        type: 'rate',
-                        payload: e.target.value,
-                      })
-                    }
-                  />
-                  <p className="input-decor text-medium-slate font-bold">%</p>
-                </div> */}
               </div>
             </div>
 
             <div className="radio-input-block">
               <label className="label-basic" htmlFor="type">
-                Mortgage Type
+                {language.meta.typeInput}
               </label>
 
-              <div className="radio-input-wrapper input-design">
+              <div
+                className="repayment-input-wrapper radio-input-wrapper bordered"
+                onClick={() =>
+                  dispatch({ type: 'method', payload: 'repayment' })
+                }
+              >
                 <input
+                  className="repayment-input"
                   type="radio"
                   name="type"
                   id=""
                   value="repayment"
                   checked={state.method === 'repayment'}
-                  onChange={(e) =>
-                    dispatch({ type: 'method', payload: e.target.value })
+                  onChange={() =>
+                    dispatch({ type: 'method', payload: 'repayment' })
                   }
                 />
                 <label className="label-stressed" htmlFor="">
-                  Repayment
+                  {language.labels.repaymentInput}
                 </label>
               </div>
 
-              <div className="radio-input-wrapper input-design">
+              <div
+                className="interest-input-wrapper radio-input-wrapper bordered"
+                onClick={() =>
+                  dispatch({ type: 'method', payload: 'interest' })
+                }
+              >
                 <input
+                  className="interest-input"
                   type="radio"
                   name="type"
                   id=""
                   value="interest"
                   checked={state.method === 'interest'}
-                  onChange={(e) =>
-                    dispatch({ type: 'method', payload: e.target.value })
+                  onChange={() =>
+                    dispatch({ type: 'method', payload: 'interest' })
                   }
                 />
                 <label className="label-stressed" htmlFor="">
-                  Interest Only
+                  {language.labels.interestInput}
                 </label>
               </div>
+              <p
+                className={`error-message text-red text-S ${
+                  !typeError ? 'hidden' : ''
+                }`}
+              >
+                {language.errorMessage}
+              </p>
             </div>
 
             <button
@@ -207,14 +253,19 @@ function App() {
               type="submit"
             >
               <img src={calcSVG} alt="" />
-              Calculate Repayments
+              {language.button.subimt}
             </button>
           </form>
         </div>
 
         <div className="result-section">
-          <ResultSection result={state.result} total={state.total} />
+          <ResultSection
+            result={state.result}
+            total={state.total}
+            language={language}
+          />
         </div>
+        <LanguagePicker setLanguage={setLanguage} />
       </main>
     </div>
   );

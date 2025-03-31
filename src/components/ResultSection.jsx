@@ -1,7 +1,7 @@
 import { formatString } from '../utils';
 import image from '/images/illustration-empty.svg';
 
-const ResultSection = ({ result, total }) => {
+const ResultSection = ({ result, total, language }) => {
   return (
     <>
       {!result && (
@@ -10,37 +10,40 @@ const ResultSection = ({ result, total }) => {
             <img src={image} alt="" />
           </div>
 
-          <h2 className="text-XL text-white">Results shown here</h2>
+          <h2 className="text-XL text-white">
+            {language.titles.result.noResult}
+          </h2>
           <p className="text-M text-light-slate text-center">
-            Complete the form and click "calculate repayments" to see what your
-            monthly repayments wold be
+            {language.descriptions.noResult}
           </p>
         </div>
       )}
 
       {result && (
         <div className="isresult-container">
-          <h2 className="text-XL text-white">Your results</h2>
+          <h2 className="text-XL text-white">
+            {language.titles.result.hasResult}
+          </h2>
           <p className="text-M text-light-slate">
-            Your results are shown below based on the information you provided.
-            To adjust the results, edit the form and click "calculate
-            repayments" again.
+            {language.descriptions.hasResult}
           </p>
 
           <div className="calculations-wrapper">
             <div>
-              <p className="text-M text-light-slate">Your monthly repayments</p>
+              <p className="text-M text-light-slate">
+                {language.subTitles.resultMonthly}
+              </p>
               <p className="text-XXL text-lime font-bold">
-                {formatString(Number(result).toFixed(0))} HUF
+                $ {formatString(Number(result).toFixed(0))}
               </p>
             </div>
 
             <div>
               <p className="text-M text-light-slate">
-                Total you will repay over the term
+                {language.subTitles.resultTotal}
               </p>
               <p className="text-XL text-white font-bold">
-                {formatString(Number(total).toFixed(0))} HUF
+                $ {formatString(Number(total).toFixed(0))}
               </p>
             </div>
           </div>

@@ -17,7 +17,15 @@ export const calculateRepay = (amount, years, rateInput) => {
   m = p * ((r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
   return m;
 };
-0;
+
+export const calculateInterest = (amount, rateInput) => {
+  let m;
+  const p = amount;
+  const r = rateInput / 100;
+
+  m = (p * r) / 12;
+  return m;
+};
 
 export const normalizeString = (value) => {
   return value.replace(/,/g, '');

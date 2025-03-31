@@ -14,6 +14,7 @@
   display: grid;
   max-width: 62.5rem;
   background-color: white;
+  position: relative;
 
   @media (min-width: $breakpoint-small) {
     border-radius: 24px;
@@ -83,6 +84,11 @@
   place-content: center;
 }
 
+.input-decor.error {
+  background-color: var(--clr-red);
+  color: white;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -94,7 +100,7 @@
   align-items: center;
   gap: 1rem;
   padding: 0.875rem 1rem;
-  border: 1px solid black;
+  outline: 1px solid var(--clr-slate-700);
 }
 
 .clear-button {
@@ -103,6 +109,11 @@
   border: 0;
   background: 0;
   text-decoration: 1px var(--clr-slate-700) underline;
+}
+
+.clear-button:hover {
+  cursor: pointer;
+  color: var(--clr-slate-900);
 }
 
 .submit-button {
@@ -126,6 +137,32 @@
   img {
     width: 1.3rem;
   }
+}
+
+.submit-button:hover {
+  background-color: var(--clr-lime-opq);
+}
+
+.repayment-input-wrapper:has(.repayment-input:focus) {
+  outline: 2px solid var(--clr-lime);
+}
+
+.interest-input-wrapper:has(.interest-input:focus) {
+  outline: 2px solid var(--clr-lime);
+}
+
+.radio-input-wrapper:has(input[type='radio']:checked) {
+  outline: 2px solid var(--clr-lime);
+  background-color: var(--clr-lime-opq);
+}
+
+.radio-input-wrapper:hover {
+  cursor: pointer;
+  outline: 2px solid var(--clr-lime);
+}
+
+.radio-input-wrapper label {
+  pointer-events: none;
 }
 
 //reults
@@ -187,5 +224,67 @@
   @media (min-width: $breakpoint-small) {
     padding-bottom: 2rem;
     margin-bottom: 2rem;
+  }
+}
+
+// lang
+.language-picker-container {
+  position: absolute;
+  top: 32px;
+  right: 24px;
+  width: 30px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+
+  & ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: absolute;
+    right: 0;
+    top: 24px;
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 200ms ease, opacity 1000ms ease;
+
+    @media (min-width: $breakpoint-large) {
+      right: unset;
+      left: 0;
+      color: white;
+    }
+  }
+
+  & ul.visible {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  & ul > li {
+    color: var(--clr-slate-700);
+    padding-left: 8px;
+
+    @media (min-width: $breakpoint-large) {
+      color: white;
+    }
+  }
+
+  & ul > li:hover {
+    color: var(--clr-slate-900);
+    text-decoration: underline;
+
+    @media (min-width: $breakpoint-large) {
+      color: var(--clr-lime);
+    }
+  }
+
+  @media (min-width: $breakpoint-small) {
+    left: 50%;
+    top: 0;
   }
 }
