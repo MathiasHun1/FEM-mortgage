@@ -15,16 +15,16 @@ const FormSection = ({ state, dispatch, language }) => {
     errorDispatch({ type: 'clearAll' });
 
     if (!state.amount) {
-      dispatch({ type: 'amountError', payload: false });
+      errorDispatch({ type: 'setAmountError', payload: true });
     }
     if (!state.term) {
-      dispatch({ type: 'termError', payload: false });
+      errorDispatch({ type: 'setTermError', payload: true });
     }
     if (!state.rate) {
-      dispatch({ type: 'rateError', payload: false });
+      errorDispatch({ type: 'setRateError', payload: true });
     }
     if (!(state.method === 'repayment' || state.method === 'interest')) {
-      dispatch({ type: 'typeError', payload: false });
+      errorDispatch({ type: 'setTypeError', payload: true });
     }
 
     if (!(state.amount && state.term && state.rate && state.method)) {
@@ -68,7 +68,10 @@ const FormSection = ({ state, dispatch, language }) => {
           <button
             type="button"
             className="clear-button text-medium-slate"
-            onClick={() => dispatch({ type: 'clearAll' })}
+            onClick={() => {
+              dispatch({ type: 'clearAll' });
+              errorDispatch({ type: 'clearAll' });
+            }}
           >
             {language.button.clear}
           </button>

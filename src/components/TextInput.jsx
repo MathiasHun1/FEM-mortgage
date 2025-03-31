@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { formatString } from '../utils';
-import LanguagePicker from './LanguagePicker';
 
 const TextInput = ({
   id,
@@ -72,7 +71,7 @@ const TextInput = ({
       </div>
       <p
         className={`error-message text-red text-S ${
-          !errorState ? 'hidden' : ''
+          errorState ? '' : 'hidden'
         }`}
       >
         {language.errorMessage}
