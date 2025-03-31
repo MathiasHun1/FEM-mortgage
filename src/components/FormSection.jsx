@@ -145,7 +145,7 @@ const FormSection = ({ state, dispatch, language }) => {
         </div>
 
         <div className="radio-input-block">
-          <label className="label-basic" htmlFor="type">
+          <label className="label-basic" htmlFor="">
             {language.meta.typeInput}
           </label>
 
@@ -163,14 +163,14 @@ const FormSection = ({ state, dispatch, language }) => {
               className="repayment-input"
               type="radio"
               name="type"
-              id=""
+              id="repayment"
               value="repayment"
               checked={state.method === 'repayment'}
               onChange={() =>
                 dispatch({ type: 'method', payload: 'repayment' })
               }
             />
-            <label className="label-stressed" htmlFor="">
+            <label className="label-stressed" htmlFor="repayment">
               {language.labels.repaymentInput}
             </label>
           </div>
@@ -189,12 +189,12 @@ const FormSection = ({ state, dispatch, language }) => {
               className="interest-input"
               type="radio"
               name="type"
-              id=""
+              id="interest"
               value="interest"
               checked={state.method === 'interest'}
               onChange={() => dispatch({ type: 'method', payload: 'interest' })}
             />
-            <label className="label-stressed" htmlFor="">
+            <label className="label-stressed" htmlFor="interest">
               {language.labels.interestInput}
             </label>
           </div>
