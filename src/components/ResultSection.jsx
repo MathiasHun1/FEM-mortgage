@@ -1,3 +1,4 @@
+import { lang } from '../assets/languageData';
 import { formatString } from '../utils';
 import image from '/images/illustration-empty.svg';
 
@@ -34,7 +35,9 @@ const ResultSection = ({ result, total, language }) => {
                 {language.subTitles.resultMonthly}
               </p>
               <p className="text-XXL text-lime font-bold">
-                $ {formatString(Number(result).toFixed(0))}
+                {language.name === 'eng' && '$ '}
+                {formatString(Number(result).toFixed(0))}
+                {language.name === 'hun' && ' HUF'}
               </p>
             </div>
 
@@ -43,7 +46,9 @@ const ResultSection = ({ result, total, language }) => {
                 {language.subTitles.resultTotal}
               </p>
               <p className="text-XL text-white font-bold">
-                $ {formatString(Number(total).toFixed(0))}
+                {language.name === 'eng' && '$ '}
+                {formatString(Number(total).toFixed(0))}
+                {language.name === 'hun' && ' HUF'}
               </p>
             </div>
           </div>

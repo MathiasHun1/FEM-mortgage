@@ -1,5 +1,6 @@
 export const lang = {
   eng: {
+    name: 'eng',
     titles: {
       main: 'Mortgage Calculator',
       result: {
@@ -38,6 +39,7 @@ export const lang = {
   },
 
   hun: {
+    name: 'hun',
     titles: {
       main: 'Hitel kalkulátor',
       result: {
