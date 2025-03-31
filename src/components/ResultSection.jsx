@@ -3,7 +3,7 @@ import image from '/images/illustration-empty.svg';
 
 const ResultSection = ({ result, total, language }) => {
   return (
-    <>
+    <div className="result-section">
       {!result && (
         <div className="noresult-container">
           <div className="image_wrapper-result">
@@ -53,7 +53,7 @@ const ResultSection = ({ result, total, language }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
