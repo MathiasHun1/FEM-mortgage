@@ -145,7 +145,7 @@ const FormSection = ({ state, dispatch, language }) => {
         </div>
 
         <div className="radio-input-block">
-          <h2 className="label-basic">{language.meta.typeInput}</h2>
+          <h2 className="label-basic font-normal">{language.meta.typeInput}</h2>
 
           <div
             className="repayment-input-wrapper radio-input-wrapper bordered"
