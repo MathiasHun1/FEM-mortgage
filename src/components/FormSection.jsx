@@ -145,9 +145,7 @@ const FormSection = ({ state, dispatch, language }) => {
         </div>
 
         <div className="radio-input-block">
-          <label className="label-basic" htmlFor="">
-            {language.meta.typeInput}
-          </label>
+          <h2 className="label-basic">{language.meta.typeInput}</h2>
 
           <div
             className="repayment-input-wrapper radio-input-wrapper bordered"
@@ -170,9 +168,9 @@ const FormSection = ({ state, dispatch, language }) => {
                 dispatch({ type: 'method', payload: 'repayment' })
               }
             />
-            <h2 className="label-stressed" htmlFor="repayment">
+            <label className="label-stressed" htmlFor="repayment">
               {language.labels.repaymentInput}
-            </h2>
+            </label>
           </div>
 
           <div
