@@ -170,9 +170,9 @@ const FormSection = ({ state, dispatch, language }) => {
                 dispatch({ type: 'method', payload: 'repayment' })
               }
             />
-            <label className="label-stressed" htmlFor="repayment">
+            <h2 className="label-stressed" htmlFor="repayment">
               {language.labels.repaymentInput}
-            </label>
+            </h2>
           </div>
 
           <div
