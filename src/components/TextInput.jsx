@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { formatString } from '../utils';
+import LanguagePicker from './LanguagePicker';
 
 const TextInput = ({
   id,
@@ -8,6 +9,7 @@ const TextInput = ({
   decoration,
   decorSide,
   errorState,
+  language,
 }) => {
   const inputRef = useRef(null);
   const decorRef = useRef(null);
@@ -73,7 +75,7 @@ const TextInput = ({
           !errorState ? 'hidden' : ''
         }`}
       >
-        This field is required
+        {language.errorMessage}
       </p>
     </>
   );

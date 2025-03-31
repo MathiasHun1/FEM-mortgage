@@ -55,7 +55,7 @@ const inputReducer = (state, action) => {
 };
 
 function App() {
-  const [language, setLanguage] = useState(lang.eng);
+  const [language, setLanguage] = useState(lang.hun);
   const [state, dispatch] = useReducer(inputReducer, initialState);
   const [amountError, setAmountError] = useState(false);
   const [termError, setTermError] = useState(false);
@@ -147,6 +147,7 @@ function App() {
                 decoration={language.meta.amountInput}
                 decorSide="left"
                 errorState={amountError}
+                language={language}
               />
             </div>
 
@@ -168,6 +169,7 @@ function App() {
                   decoration={language.meta.termInput}
                   decorSide={'right'}
                   errorState={termError}
+                  language={language}
                 />
               </div>
               <div className="input-block">
@@ -187,6 +189,7 @@ function App() {
                   decoration="%"
                   decorSide="right"
                   errorState={rateError}
+                  language={language}
                 />
               </div>
             </div>
@@ -198,9 +201,10 @@ function App() {
 
               <div
                 className="repayment-input-wrapper radio-input-wrapper bordered"
-                onClick={() =>
-                  dispatch({ type: 'method', payload: 'repayment' })
-                }
+                onClick={() => {
+                  dispatch({ type: 'method', payload: 'repayment' });
+                  setTypeError(false);
+                }}
               >
                 <input
                   className="repayment-input"
@@ -220,9 +224,10 @@ function App() {
 
               <div
                 className="interest-input-wrapper radio-input-wrapper bordered"
-                onClick={() =>
-                  dispatch({ type: 'method', payload: 'interest' })
-                }
+                onClick={() => {
+                  dispatch({ type: 'method', payload: 'interest' });
+                  setTypeError(false);
+                }}
               >
                 <input
                   className="interest-input"
