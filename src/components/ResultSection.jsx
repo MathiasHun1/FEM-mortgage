@@ -1,4 +1,3 @@
-import { lang } from '../assets/languageData';
 import { formatString } from '../utils';
 import image from '/images/illustration-empty.svg';
 
